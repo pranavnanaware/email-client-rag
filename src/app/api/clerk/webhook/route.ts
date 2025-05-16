@@ -4,8 +4,8 @@ export const POST = async (req: Request) => {
   try {
     const { data } = await req.json();
     const emailAddress = data.email_addresses[0].email_address;
-    const firstName = data.first_name;
-    const lastName = data.last_name;
+    let firstName = data.first_name;
+    let lastName = data.last_name;
     const imageUrl = data.image_url;
     const id = data.id;
 
@@ -17,6 +17,11 @@ export const POST = async (req: Request) => {
 
     if (user) {
       return new Response("User already exists", { status: 400 });
+    }
+
+    if (!firstName || !lastName) {
+        firstName = emailAddress.split('@')[0];
+        lastName = '';
     }
 
     await db.user.create({
