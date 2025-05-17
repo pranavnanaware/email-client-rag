@@ -12,6 +12,7 @@ const config = {
     typescript: {
         ignoreBuildErrors: true,
     },
+    optimizeFonts: false
 };
 
 export default config;
